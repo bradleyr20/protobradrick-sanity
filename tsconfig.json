@@ -1,3 +1,5 @@
+// tsconfig.json (Updated)
+
 {
   "compilerOptions": {
     "target": "ES2017",
@@ -10,7 +12,12 @@
     "moduleDetection": "force",
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+
+    /* --- LINES ADDED BELOW --- */
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "noUncheckedIndexedAccess": true
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
