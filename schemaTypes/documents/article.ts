@@ -1,4 +1,4 @@
-// File: schemas/documents/article.ts
+// File: schemaTypes/documents/article.ts
 import {defineType, defineField} from 'sanity'
 
 export default defineType({
@@ -43,38 +43,31 @@ export default defineType({
           {title: 'Equipment', value: 'equipment'},
           {title: 'Instruction', value: 'instruction'},
           {title: 'News', value: 'news'},
+          {title: 'Courses', value: 'courses'},
         ] as const,
       },
     }),
+
+    // PUBLISHING-STYLE IMAGE FIELDS
     defineField({
-      name: 'featuredImage',
-      title: 'Featured Image',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-      fields: [
-        {
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative Text',
-          description: 'Important for SEO and accessibility.',
-          validation: (Rule) => Rule.required(),
-        },
-        {
-          name: 'caption',
-          type: 'string',
-          title: 'Caption',
-          description: 'Optional caption for the image',
-        },
-        {
-          name: 'credit',
-          type: 'string',
-          title: 'Photo Credit',
-          description: 'Photographer or image source credit',
-        },
-      ],
+      name: 'leadImage',
+      title: 'Lead Image',
+      type: 'imageReference',
+      description: 'Main image that appears at the top of the article',
     }),
+    defineField({
+      name: 'toutImage',
+      title: 'Tout Image',
+      type: 'imageReference',
+      description: 'Thumbnail image for article promotion on landing pages',
+    }),
+    defineField({
+      name: 'socialImage',
+      title: 'Social Media Image',
+      type: 'imageReference',
+      description: 'Optional: Image for social media sharing (uses lead image if not specified)',
+    }),
+
     defineField({
       name: 'location',
       title: 'Location',
@@ -102,6 +95,8 @@ export default defineType({
       rows: 3,
       validation: (Rule) => Rule.max(300),
     }),
+
+    // BODY CONTENT with DAM integration
     defineField({
       name: 'body',
       title: 'Body Content',
@@ -141,28 +136,12 @@ export default defineType({
             ],
           },
         },
+        // Inline images from DAM
         {
-          type: 'image',
-          options: {hotspot: true},
-          fields: [
-            {
-              name: 'alt',
-              type: 'string',
-              title: 'Alternative Text',
-              validation: (Rule) => Rule.required(),
-            },
-            {
-              name: 'caption',
-              type: 'string',
-              title: 'Caption',
-            },
-            {
-              name: 'credit',
-              type: 'string',
-              title: 'Photo Credit',
-            },
-          ],
+          type: 'imageReference',
+          title: 'Inline Image',
         },
+        // Pull quote block
         defineType({
           name: 'quote',
           type: 'object',
@@ -184,6 +163,7 @@ export default defineType({
         }),
       ],
     }),
+
     defineField({
       name: 'tags',
       title: 'Tags',
@@ -205,6 +185,8 @@ export default defineType({
       of: [{type: 'reference', to: {type: 'tournament'}}],
       description: 'Golf tournaments mentioned in the article',
     }),
+
+    // SEO SETTINGS
     defineField({
       name: 'seo',
       title: 'SEO Settings',
@@ -224,14 +206,9 @@ export default defineType({
           description: 'Description for search engines (150-160 characters)',
           validation: (Rule) => Rule.max(160),
         },
-        {
-          name: 'openGraphImage',
-          title: 'Social Share Image',
-          type: 'image',
-          description: 'Image for social media sharing',
-        },
       ],
     }),
+
     defineField({
       name: 'featured',
       title: 'Featured Article',
@@ -258,14 +235,14 @@ export default defineType({
     select: {
       title: 'title',
       author: 'author.name',
-      media: 'featuredImage',
+      media: 'leadImage.asset.image',
       subtitle: 'subtitle',
     },
     prepare(selection) {
       const {author} = selection
       return {
         ...selection,
-        subtitle: author && `by ${author}`,
+        subtitle: author ? `by ${author}` : selection.subtitle,
       }
     },
   },
@@ -283,5 +260,3 @@ export default defineType({
     },
   ],
 })
-
-// ============================================
