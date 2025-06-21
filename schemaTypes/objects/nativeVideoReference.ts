@@ -1,4 +1,9 @@
 // schemaTypes/objects/nativeVideoReference.ts
+// This file defines a Sanity schema for an object that references an external video.
+// It includes fields for the video reference and display mode, with validation and preview settings.
+
+import {defineType, defineField} from 'sanity'
+
 export default defineType({
   name: 'nativeVideoReference',
   title: 'Native Video',
