@@ -1,7 +1,5 @@
 // File: schemaTypes/objects/imageReference.ts
-import {defineType, defineField} from 'sanity'
-
-export default defineType({
+export const imageReference = defineType({
   name: 'imageReference',
   title: 'Image Reference',
   type: 'object',
