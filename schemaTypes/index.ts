@@ -8,9 +8,13 @@ import imageAsset from './documents/imageAsset'
 import player from './documents/player'
 import tournament from './documents/tournament'
 import tag from './documents/tag'
+import externalVideo from './documents/externalVideo'
+import nativeVideoAsset from './documents/nativeVideoAsset'
 
 // Objects
 import imageReference from './objects/imageReference'
+import externalVideoReference from './objects/externalVideoReference'
+import nativeVideoReference from './objects/nativeVideoReference'
 
 export const schema: {types: SchemaTypeDefinition[]} = {
   types: [
@@ -21,8 +25,12 @@ export const schema: {types: SchemaTypeDefinition[]} = {
     player,
     tournament,
     tag,
+    externalVideo,
+    nativeVideoAsset,
     
     // Objects
     imageReference,
+    externalVideoReference,
+    nativeVideoReference,
   ],
 }

@@ -96,7 +96,7 @@ export default defineType({
       validation: (Rule) => Rule.max(300),
     }),
 
-    // BODY CONTENT with DAM integration
+    // BODY CONTENT with DAM integration and video support
     defineField({
       name: 'body',
       title: 'Body Content',
@@ -140,6 +140,18 @@ export default defineType({
         {
           type: 'imageReference',
           title: 'Inline Image',
+        },
+        // EXTERNAL VIDEO EMBEDDING (Brightcove, YouTube, Vimeo, etc.)
+        {
+          type: 'externalVideoReference',
+          title: 'External Video',
+          description: 'Embed video from external platforms like Brightcove',
+        },
+        // NATIVE VIDEO EMBEDDING (Self-hosted MP4s from DAM)
+        {
+          type: 'nativeVideoReference',
+          title: 'Native Video',
+          description: 'Embed HTML5-playable videos stored in the DAM',
         },
         // Pull quote block
         defineType({

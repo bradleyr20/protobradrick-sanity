@@ -115,6 +115,233 @@ export default defineConfig({
 
             S.divider(),
 
+            // VIDEO CONTENT SECTION
+            S.listItem()
+              .title('🎥 Video Content')
+              .child(
+                S.list()
+                  .title('Video Content')
+                  .items([
+                    // External Videos (Brightcove, YouTube, etc.)
+                    S.listItem()
+                      .title('External Videos')
+                      .child(
+                        S.list()
+                          .title('External Videos')
+                          .items([
+                            S.listItem()
+                              .title('All External Videos')
+                              .child(
+                                S.documentTypeList('externalVideo')
+                                  .title('All External Videos')
+                                  .filter('_type == "externalVideo"')
+                              ),
+                            S.listItem()
+                              .title('Published Videos')
+                              .child(
+                                S.documentTypeList('externalVideo')
+                                  .title('Published Videos')
+                                  .filter('_type == "externalVideo" && status == "published"')
+                              ),
+                            S.listItem()
+                              .title('Draft Videos')
+                              .child(
+                                S.documentTypeList('externalVideo')
+                                  .title('Draft Videos')
+                                  .filter('_type == "externalVideo" && status == "draft"')
+                              ),
+                            S.listItem()
+                              .title('By Platform')
+                              .child(
+                                S.list()
+                                  .title('Videos by Platform')
+                                  .items([
+                                    S.listItem()
+                                      .title('Brightcove')
+                                      .child(
+                                        S.documentTypeList('externalVideo')
+                                          .title('Brightcove Videos')
+                                          .filter('_type == "externalVideo" && platform == "brightcove"')
+                                      ),
+                                    S.listItem()
+                                      .title('YouTube')
+                                      .child(
+                                        S.documentTypeList('externalVideo')
+                                          .title('YouTube Videos')
+                                          .filter('_type == "externalVideo" && platform == "youtube"')
+                                      ),
+                                    S.listItem()
+                                      .title('Vimeo')
+                                      .child(
+                                        S.documentTypeList('externalVideo')
+                                          .title('Vimeo Videos')
+                                          .filter('_type == "externalVideo" && platform == "vimeo"')
+                                      ),
+                                    S.listItem()
+                                      .title('Wistia')
+                                      .child(
+                                        S.documentTypeList('externalVideo')
+                                          .title('Wistia Videos')
+                                          .filter('_type == "externalVideo" && platform == "wistia"')
+                                      ),
+                                  ])
+                              ),
+                            S.listItem()
+                              .title('By Category')
+                              .child(
+                                S.list()
+                                  .title('Videos by Category')
+                                  .items([
+                                    S.listItem()
+                                      .title('Tournament Highlights')
+                                      .child(
+                                        S.documentTypeList('externalVideo')
+                                          .title('Tournament Highlights')
+                                          .filter('_type == "externalVideo" && category == "tournament-highlights"')
+                                      ),
+                                    S.listItem()
+                                      .title('Player Interviews')
+                                      .child(
+                                        S.documentTypeList('externalVideo')
+                                          .title('Player Interviews')
+                                          .filter('_type == "externalVideo" && category == "player-interview"')
+                                      ),
+                                    S.listItem()
+                                      .title('Instruction')
+                                      .child(
+                                        S.documentTypeList('externalVideo')
+                                          .title('Instruction Videos')
+                                          .filter('_type == "externalVideo" && category == "instruction"')
+                                      ),
+                                    S.listItem()
+                                      .title('Equipment Reviews')
+                                      .child(
+                                        S.documentTypeList('externalVideo')
+                                          .title('Equipment Reviews')
+                                          .filter('_type == "externalVideo" && category == "equipment-review"')
+                                      ),
+                                    S.listItem()
+                                      .title('Course Flyovers')
+                                      .child(
+                                        S.documentTypeList('externalVideo')
+                                          .title('Course Flyovers')
+                                          .filter('_type == "externalVideo" && category == "course-flyover"')
+                                      ),
+                                  ])
+                              ),
+                          ])
+                      ),
+                    
+                    S.divider(),
+                    
+                    // Native Video Assets (Self-hosted MP4s)
+                    S.listItem()
+                      .title('Native Video Assets')
+                      .child(
+                        S.list()
+                          .title('Native Video Assets')
+                          .items([
+                            S.listItem()
+                              .title('All Native Videos')
+                              .child(
+                                S.documentTypeList('nativeVideoAsset')
+                                  .title('All Native Videos')
+                                  .filter('_type == "nativeVideoAsset"')
+                              ),
+                            S.listItem()
+                              .title('By Category')
+                              .child(
+                                S.list()
+                                  .title('Native Videos by Category')
+                                  .items([
+                                    S.listItem()
+                                      .title('B-Roll')
+                                      .child(
+                                        S.documentTypeList('nativeVideoAsset')
+                                          .title('B-Roll Videos')
+                                          .filter('_type == "nativeVideoAsset" && category == "b-roll"')
+                                      ),
+                                    S.listItem()
+                                      .title('Slow Motion')
+                                      .child(
+                                        S.documentTypeList('nativeVideoAsset')
+                                          .title('Slow Motion Videos')
+                                          .filter('_type == "nativeVideoAsset" && category == "slow-motion"')
+                                      ),
+                                    S.listItem()
+                                      .title('Drone Footage')
+                                      .child(
+                                        S.documentTypeList('nativeVideoAsset')
+                                          .title('Drone Footage')
+                                          .filter('_type == "nativeVideoAsset" && category == "drone"')
+                                      ),
+                                    S.listItem()
+                                      .title('Animation/Graphics')
+                                      .child(
+                                        S.documentTypeList('nativeVideoAsset')
+                                          .title('Animation/Graphics')
+                                          .filter('_type == "nativeVideoAsset" && category == "animation"')
+                                      ),
+                                    S.listItem()
+                                      .title('Short Clips')
+                                      .child(
+                                        S.documentTypeList('nativeVideoAsset')
+                                          .title('Short Clips')
+                                          .filter('_type == "nativeVideoAsset" && category == "short-clip"')
+                                      ),
+                                  ])
+                              ),
+                            S.listItem()
+                              .title('Recent Uploads')
+                              .child(
+                                S.documentTypeList('nativeVideoAsset')
+                                  .title('Recent Video Uploads')
+                                  .filter('_type == "nativeVideoAsset"')
+                                  .defaultOrdering([{field: '_createdAt', direction: 'desc'}])
+                              ),
+                            S.listItem()
+                              .title('By Aspect Ratio')
+                              .child(
+                                S.list()
+                                  .title('Videos by Aspect Ratio')
+                                  .items([
+                                    S.listItem()
+                                      .title('16:9 (Landscape)')
+                                      .child(
+                                        S.documentTypeList('nativeVideoAsset')
+                                          .title('16:9 Videos')
+                                          .filter('_type == "nativeVideoAsset" && aspectRatio == "16:9"')
+                                      ),
+                                    S.listItem()
+                                      .title('9:16 (Vertical)')
+                                      .child(
+                                        S.documentTypeList('nativeVideoAsset')
+                                          .title('9:16 Vertical Videos')
+                                          .filter('_type == "nativeVideoAsset" && aspectRatio == "9:16"')
+                                      ),
+                                    S.listItem()
+                                      .title('1:1 (Square)')
+                                      .child(
+                                        S.documentTypeList('nativeVideoAsset')
+                                          .title('1:1 Square Videos')
+                                          .filter('_type == "nativeVideoAsset" && aspectRatio == "1:1"')
+                                      ),
+                                  ])
+                              ),
+                            S.listItem()
+                              .title('Needs Credit')
+                              .child(
+                                S.documentTypeList('nativeVideoAsset')
+                                  .title('Videos Missing Credit')
+                                  .filter('_type == "nativeVideoAsset" && !defined(credit)')
+                              ),
+                          ])
+                      ),
+                  ])
+              ),
+
+            S.divider(),
+
             // MEDIA LIBRARY SECTION
             S.listItem()
               .title('📸 Media Library')
