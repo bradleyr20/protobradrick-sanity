@@ -60,17 +60,6 @@ export default defineType({
       title: 'Tout Image',
       type: 'imageReference',
       description: 'Image for article listings and social sharing. Leave empty to use lead image.',
-      validation: (Rule) => 
-        Rule.custom((toutImage, context) => {
-          const leadImage = context.document?.leadImage
-          
-          // If no lead image, tout image is required
-          if (!leadImage && !toutImage) {
-            return 'Either Lead Image or Tout Image is required'
-          }
-          
-          return true
-        })
     }),
     defineField({
       name: 'socialImage',

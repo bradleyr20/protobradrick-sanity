@@ -272,12 +272,17 @@ export type Article = {
   socialImage?: ImageReference
   location?: string
   publishedAt?: string
-  author?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'author'
-  }
+  authors?: Array<{
+    author?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'author'
+    }
+    role?: 'author' | 'co-author' | 'contributor' | 'editor' | 'reporter'
+    order?: number
+    _key: string
+  }>
   excerpt?: string
   body?: Array<
     | {
