@@ -1,4 +1,3 @@
-// ============================================
 // File: lib/image.ts
 // Image helper functions for your frontend
 // ============================================
@@ -28,6 +27,19 @@ export interface ImageReference {
     alignment?: 'left' | 'center' | 'right'
     crop?: 'default' | 'square' | 'wide' | 'portrait'
   }
+}
+
+// Types for article authors
+export interface ArticleAuthor {
+  author?: {
+    _id: string
+    name: string
+    slug?: { current: string }
+    bio?: string
+    image?: any
+  }
+  role?: string
+  order?: number
 }
 
 // Helper function to resolve image with fallbacks
@@ -65,6 +77,37 @@ export function getEffectiveAlt(imageRef: ImageReference | null): string {
 export function getPhotoCredit(imageRef: ImageReference | null): string {
   if (!imageRef?.asset) return ''
   return imageRef.asset.credit || ''
+}
+
+// Helper function for displaying article bylines
+export function formatByline(authors: ArticleAuthor[]): string {
+  if (!authors?.length) return ''
+  
+  const sortedAuthors = authors
+    .sort((a, b) => (a.order || 1) - (b.order || 1))
+    .map(a => ({ name: a.author?.name, role: a.role }))
+    .filter(a => a.name)
+  
+  if (sortedAuthors.length === 1) {
+    return `By ${sortedAuthors[0].name}`
+  } else if (sortedAuthors.length === 2) {
+    return `By ${sortedAuthors[0].name} and ${sortedAuthors[1].name}`
+  } else {
+    return `By ${sortedAuthors[0].name} and ${sortedAuthors.length - 1} others`
+  }
+}
+
+// Helper to get primary author (first in order)
+export function getPrimaryAuthor(authors: ArticleAuthor[]): ArticleAuthor | null {
+  if (!authors?.length) return null
+  
+  return authors
+    .sort((a, b) => (a.order || 1) - (b.order || 1))[0] || null
+}
+
+// Helper to get authors by role
+export function getAuthorsByRole(authors: ArticleAuthor[], role: string): ArticleAuthor[] {
+  return authors?.filter(a => a.role === role) || []
 }
 
 // Enhanced image URL generator with options

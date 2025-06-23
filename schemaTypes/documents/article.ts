@@ -48,18 +48,29 @@ export default defineType({
       },
     }),
 
-    // PUBLISHING-STYLE IMAGE FIELDS
+    // PUBLISHING-STYLE IMAGE FIELDS WITH VALIDATION
     defineField({
       name: 'leadImage',
       title: 'Lead Image',
       type: 'imageReference',
-      description: 'Main image that appears at the top of the article',
+      description: 'Primary image for the article content. If no tout image is specified, this will also be used for article listings.',
     }),
     defineField({
       name: 'toutImage',
       title: 'Tout Image',
       type: 'imageReference',
-      description: 'Thumbnail image for article promotion on landing pages',
+      description: 'Image for article listings and social sharing. Leave empty to use lead image.',
+      validation: (Rule) => 
+        Rule.custom((toutImage, context) => {
+          const leadImage = context.document?.leadImage
+          
+          // If no lead image, tout image is required
+          if (!leadImage && !toutImage) {
+            return 'Either Lead Image or Tout Image is required'
+          }
+          
+          return true
+        })
     }),
     defineField({
       name: 'socialImage',
@@ -81,11 +92,62 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'author',
-      title: 'Author',
-      type: 'reference',
-      to: [{type: 'author'}],
-      description: 'Article author reference',
+      name: 'authors',
+      title: 'Authors',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'author',
+              title: 'Author',
+              type: 'reference',
+              to: [{type: 'author'}],
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: 'role',
+              title: 'Role',
+              type: 'string',
+              options: {
+                list: [
+                  {title: 'Author', value: 'author'},
+                  {title: 'Co-author', value: 'co-author'},
+                  {title: 'Contributing Writer', value: 'contributor'},
+                  {title: 'Editor', value: 'editor'},
+                  {title: 'Reporter', value: 'reporter'},
+                ],
+              },
+              initialValue: 'author',
+            },
+            {
+              name: 'order',
+              title: 'Order',
+              type: 'number',
+              description: 'Display order (1 = first author)',
+              validation: (Rule) => Rule.min(1),
+              initialValue: 1,
+            },
+          ],
+          preview: {
+            select: {
+              name: 'author.name',
+              role: 'role',
+              order: 'order',
+            },
+            prepare(selection) {
+              const {name, role, order} = selection
+              return {
+                title: name || 'Unknown Author',
+                subtitle: `${role} (${order})`,
+              }
+            },
+          },
+        },
+      ],
+      validation: (Rule) => Rule.required().min(1),
+      description: 'Article contributors in order of attribution',
     }),
     defineField({
       name: 'excerpt',
@@ -243,18 +305,51 @@ export default defineType({
     }),
   ],
 
+  // DOCUMENT-LEVEL VALIDATION FOR IMAGE REQUIREMENTS
+  validation: [
+    (Rule) => Rule.custom((doc) => {
+      if (!doc.leadImage && !doc.toutImage) {
+        return 'Article must have either a Lead Image or Tout Image'
+      }
+      return true
+    })
+  ],
+
   preview: {
     select: {
       title: 'title',
-      author: 'author.name',
-      media: 'leadImage.asset.image',
+      authors: 'authors',
+      leadImage: 'leadImage.asset.image',
+      toutImage: 'toutImage.asset.image',
       subtitle: 'subtitle',
+      status: 'status',
     },
     prepare(selection) {
-      const {author} = selection
+      const {authors, leadImage, toutImage, status} = selection
+      // Use tout image if available, fallback to lead image
+      const previewImage = toutImage || leadImage
+      
+      // Format author names
+      let authorText = ''
+      if (authors && authors.length > 0) {
+        const authorNames = authors
+          .sort((a, b) => (a.order || 1) - (b.order || 1))
+          .map(a => a.author?.name)
+          .filter(Boolean)
+        
+        if (authorNames.length === 1) {
+          authorText = `by ${authorNames[0]}`
+        } else if (authorNames.length === 2) {
+          authorText = `by ${authorNames[0]} & ${authorNames[1]}`
+        } else if (authorNames.length > 2) {
+          authorText = `by ${authorNames[0]} & ${authorNames.length - 1} others`
+        }
+      }
+      
       return {
         ...selection,
-        subtitle: author ? `by ${author}` : selection.subtitle,
+        subtitle: authorText || selection.subtitle,
+        media: previewImage,
       }
     },
   },
