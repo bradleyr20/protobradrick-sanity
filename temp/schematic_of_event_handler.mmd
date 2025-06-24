@@ -1,0 +1,55 @@
+---
+id: e365f21f-3a58-44c5-beee-15812c5f57c6
+---
+graph TD
+    subgraph Event Sources
+        A[Mobile/Web App];
+        B["External Service <br/>(e.g., ESP via Webhook)"];
+    end
+
+    subgraph "Event Broker (AWS)"
+        subgraph Ingestion & Routing
+            SNSTopic["SNS Topic<br/>(Central Hub for Raw Events)"];
+        end
+
+        subgraph "Consumer Lane: CDP"
+            SQS_CDP["SQS Queue<br/>(Durable queue for CDP)"];
+            Lambda_CDP["<b style='font-size:14px'>λ</b><br/>Lambda Function<br/><i>Translates for CDP</i>"];
+        end
+
+        subgraph "Consumer Lane: Analytics"
+            SQS_Analytics["SQS Queue<br/>(Durable queue for Analytics)"];
+            Lambda_Analytics["<b style='font-size:14px'>λ</b><br/>Lambda Function<br/><i>Translates for Analytics</i>"];
+        end
+
+        subgraph "Consumer Lane: New Service"
+            SQS_New["..."];
+            Lambda_New["..."];
+        end
+    end
+
+    subgraph Destination Services
+        Dest_CDP["CDP / Personalization<br/>"];
+        Dest_Analytics["Adobe Analytics<br/>"];
+        Dest_New["New Destination"];
+    end
+
+    %% Define connections
+    A -- "sends 'User Liked' event" --> SNSTopic;
+    B -- "sends 'Email Opened' event" --> SNSTopic;
+    
+    SNSTopic -- "broadcasts copy" --> SQS_CDP;
+    SNSTopic -- "broadcasts copy" --> SQS_Analytics;
+    SNSTopic -- "broadcasts copy" --> SQS_New;
+
+    SQS_CDP -- "triggers" --> Lambda_CDP;
+    SQS_Analytics -- "triggers" --> Lambda_Analytics;
+    SQS_New -- "triggers" --> Lambda_New;
+    
+    Lambda_CDP -- "sends translated event" --> Dest_CDP;
+    Lambda_Analytics -- "sends translated event" --> Dest_Analytics;
+    Lambda_New -- "sends translated event" --> Dest_New;
+
+    %% Styling
+    classDef aws fill:#FF9900,stroke:#333,stroke-width:2px;
+    class SNSTopic,SQS_CDP,SQS_Analytics,SQS_New,Lambda_CDP,Lambda_Analytics,Lambda_New aws;
