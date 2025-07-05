@@ -96,6 +96,313 @@ export default defineConfig({
 
             S.divider(),
 
+            // GOLF EQUIPMENT SECTION
+            S.listItem()
+              .title('Golf Equipment')
+              .icon(GiDiscGolfBag)
+              .child(
+                S.list()
+                  .title('Golf Equipment')
+                  .items([
+                    // Buying Guides
+                    S.listItem()
+                      .title('Buying Guides')
+                      .icon(DocumentTextIcon)
+                      .child(
+                        S.list()
+                          .title('Buying Guides')
+                          .items([
+                            S.listItem()
+                              .title('All Buying Guides')
+                              .icon(FolderIcon)
+                              .child(
+                                S.documentTypeList('buyingGuide')
+                                  .title('All Buying Guides')
+                                  .filter('_type == "buyingGuide"')
+                              ),
+                            S.listItem()
+                              .title('By Club Type')
+                              .icon(TagIcon)
+                              .child(
+                                S.list()
+                                  .title('Guides by Club Type')
+                                  .items([
+                                    S.listItem()
+                                      .title('Driver Guides')
+                                      .icon(FaGolfBallTee)
+                                      .child(
+                                        S.documentTypeList('buyingGuide')
+                                          .title('Driver Buying Guides')
+                                          .filter('_type == "buyingGuide" && clubType == "drivers"')
+                                      ),
+                                    S.listItem()
+                                      .title('Iron Guides')
+                                      .icon(MdSportsGolf)
+                                      .child(
+                                        S.documentTypeList('buyingGuide')
+                                          .title('Iron Buying Guides')
+                                          .filter('_type == "buyingGuide" && clubType == "irons"')
+                                      ),
+                                    S.listItem()
+                                      .title('Putter Guides')
+                                      .icon(GiGolfFlag)
+                                      .child(
+                                        S.documentTypeList('buyingGuide')
+                                          .title('Putter Buying Guides')
+                                          .filter('_type == "buyingGuide" && clubType == "putters"')
+                                      ),
+                                    S.listItem()
+                                      .title('Wedge Guides')
+                                      .child(
+                                        S.documentTypeList('buyingGuide')
+                                          .title('Wedge Buying Guides')
+                                          .filter('_type == "buyingGuide" && clubType == "wedges"')
+                                      ),
+                                    S.listItem()
+                                      .title('Fairway Wood Guides')
+                                      .child(
+                                        S.documentTypeList('buyingGuide')
+                                          .title('Fairway Wood Buying Guides')
+                                          .filter('_type == "buyingGuide" && clubType == "fairway-woods"')
+                                      ),
+                                    S.listItem()
+                                      .title('Hybrid Guides')
+                                      .child(
+                                        S.documentTypeList('buyingGuide')
+                                          .title('Hybrid Buying Guides')
+                                          .filter('_type == "buyingGuide" && clubType == "hybrids"')
+                                      ),
+                                  ])
+                              ),
+                            S.listItem()
+                              .title('By Year')
+                              .icon(CalendarIcon)
+                              .child(
+                                S.list()
+                                  .title('Guides by Year')
+                                  .items([
+                                    S.listItem()
+                                      .title('2025 Guides')
+                                      .child(
+                                        S.documentTypeList('buyingGuide')
+                                          .title('2025 Buying Guides')
+                                          .filter('_type == "buyingGuide" && year == 2025')
+                                      ),
+                                    S.listItem()
+                                      .title('2024 Guides')
+                                      .child(
+                                        S.documentTypeList('buyingGuide')
+                                          .title('2024 Buying Guides')
+                                          .filter('_type == "buyingGuide" && year == 2024')
+                                      ),
+                                  ])
+                              ),
+                          ])
+                      ),
+
+                    S.divider(),
+
+                    // Golf Clubs
+                    S.listItem()
+                      .title('Golf Clubs')
+                      .icon(MdSportsGolf)
+                      .child(
+                        S.list()
+                          .title('Golf Clubs')
+                          .items([
+                            S.listItem()
+                              .title('All Clubs')
+                              .icon(FolderIcon)
+                              .child(
+                                S.documentTypeList('club')
+                                  .title('All Golf Clubs')
+                                  .filter('_type == "club"')
+                              ),
+                            S.listItem()
+                              .title('By Club Type')
+                              .icon(TagIcon)
+                              .child(
+                                S.list()
+                                  .title('Clubs by Type')
+                                  .items([
+                                    S.listItem()
+                                      .title('Drivers')
+                                      .icon(FaGolfBallTee)
+                                      .child(
+                                        S.documentTypeList('club')
+                                          .title('Drivers')
+                                          .filter('_type == "club" && clubType == "driver"')
+                                      ),
+                                    S.listItem()
+                                      .title('Fairway Woods')
+                                      .child(
+                                        S.documentTypeList('club')
+                                          .title('Fairway Woods')
+                                          .filter('_type == "club" && clubType == "fairway-wood"')
+                                      ),
+                                    S.listItem()
+                                      .title('Hybrids')
+                                      .child(
+                                        S.documentTypeList('club')
+                                          .title('Hybrids')
+                                          .filter('_type == "club" && clubType == "hybrid"')
+                                      ),
+                                    S.listItem()
+                                      .title('Irons')
+                                      .child(
+                                        S.documentTypeList('club')
+                                          .title('Irons')
+                                          .filter('_type == "club" && clubType == "iron"')
+                                      ),
+                                    S.listItem()
+                                      .title('Wedges')
+                                      .child(
+                                        S.documentTypeList('club')
+                                          .title('Wedges')
+                                          .filter('_type == "club" && clubType == "wedge"')
+                                      ),
+                                    S.listItem()
+                                      .title('Putters')
+                                      .icon(GiGolfFlag)
+                                      .child(
+                                        S.list()
+                                          .title('Putters')
+                                          .items([
+                                            S.listItem()
+                                              .title('All Putters')
+                                              .child(
+                                                S.documentTypeList('club')
+                                                  .title('All Putters')
+                                                  .filter('_type == "club" && clubType == "putter"')
+                                              ),
+                                            S.listItem()
+                                              .title('Blade Putters')
+                                              .child(
+                                                S.documentTypeList('club')
+                                                  .title('Blade Putters')
+                                                  .filter('_type == "club" && clubType == "putter" && clubSubType == "blade-putter"')
+                                              ),
+                                            S.listItem()
+                                              .title('Mallet Putters')
+                                              .child(
+                                                S.documentTypeList('club')
+                                                  .title('Mallet Putters')
+                                                  .filter('_type == "club" && clubType == "putter" && clubSubType == "mallet-putter"')
+                                              ),
+                                          ])
+                                      ),
+                                  ])
+                              ),
+                            S.listItem()
+                              .title('Featured Clubs')
+                              .icon(StarIcon)
+                              .child(
+                                S.documentTypeList('club')
+                                  .title('Featured Clubs')
+                                  .filter('_type == "club" && featured == true')
+                              ),
+                            S.listItem()
+                              .title('Hot List Gold')
+                              .icon(FaTrophy)
+                              .child(
+                                S.documentTypeList('club')
+                                  .title('Hot List Gold Winners')
+                                  .filter('_type == "club" && hotListScore.award == "gold"')
+                              ),
+                            S.listItem()
+                              .title('Hot List Silver')
+                              .child(
+                                S.documentTypeList('club')
+                                  .title('Hot List Silver Winners')
+                                  .filter('_type == "club" && hotListScore.award == "silver"')
+                              ),
+                            S.listItem()
+                              .title('Top 5 Awards')
+                              .child(
+                                S.list()
+                                  .title('Top 5 Award Categories')
+                                  .items([
+                                    S.listItem()
+                                      .title('Top 5 in Performance')
+                                      .child(
+                                        S.documentTypeList('club')
+                                          .title('Top 5 in Performance')
+                                          .filter('_type == "club" && "Performance" in awards')
+                                      ),
+                                    S.listItem()
+                                      .title('Top 5 in Forgiveness')
+                                      .child(
+                                        S.documentTypeList('club')
+                                          .title('Top 5 in Forgiveness')
+                                          .filter('_type == "club" && "Forgiveness" in awards')
+                                      ),
+                                    S.listItem()
+                                      .title('Top 5 in Sound/Feel')
+                                      .child(
+                                        S.documentTypeList('club')
+                                          .title('Top 5 in Sound/Feel')
+                                          .filter('_type == "club" && "Sound/Feel" in awards')
+                                      ),
+                                  ])
+                              ),
+                          ])
+                      ),
+
+                    S.divider(),
+
+                    // Brands
+                    S.listItem()
+                      .title('Golf Brands')
+                      .icon(TagIcon)
+                      .child(
+                        S.list()
+                          .title('Golf Brands')
+                          .items([
+                            S.listItem()
+                              .title('All Brands')
+                              .icon(FolderIcon)
+                              .child(
+                                S.documentTypeList('brand')
+                                  .title('Golf Brands')
+                                  .filter('_type == "brand"')
+                              ),
+                            S.listItem()
+                              .title('By Specialty')
+                              .icon(TagIcon)
+                              .child(
+                                S.list()
+                                  .title('Brands by Specialty')
+                                  .items([
+                                    S.listItem()
+                                      .title('Driver Specialists')
+                                      .child(
+                                        S.documentTypeList('brand')
+                                          .title('Driver Specialists')
+                                          .filter('_type == "brand" && "drivers" in specialties')
+                                      ),
+                                    S.listItem()
+                                      .title('Iron Specialists')
+                                      .child(
+                                        S.documentTypeList('brand')
+                                          .title('Iron Specialists')
+                                          .filter('_type == "brand" && "irons" in specialties')
+                                      ),
+                                    S.listItem()
+                                      .title('Putter Specialists')
+                                      .child(
+                                        S.documentTypeList('brand')
+                                          .title('Putter Specialists')
+                                          .filter('_type == "brand" && "putters" in specialties')
+                                      ),
+                                  ])
+                              ),
+                          ])
+                      ),
+                  ])
+              ),
+
+            S.divider(),
+
             // MEDIA LIBRARY SECTION
             S.listItem()
               .title('Media Library')
@@ -153,7 +460,7 @@ export default defineConfig({
                                       ),
                                     S.listItem()
                                       .title('Equipment')
-                                      .icon(GiDiscGolfBag)  // Golf bag icon - perfect for equipment!
+                                      .icon(GiDiscGolfBag)
                                       .child(
                                         S.documentTypeList('imageAsset')
                                           .title('Equipment')
@@ -247,7 +554,7 @@ export default defineConfig({
             // PLAYERS SECTION
             S.listItem()
               .title('Players')
-              .icon(PiGolf)  // Golf ball on tee - works well for players
+              .icon(PiGolf)
               .child(
                 S.list()
                   .title('Players')
@@ -280,6 +587,20 @@ export default defineConfig({
                                 S.documentTypeList('player')
                                   .title('PGA Players')
                                   .filter('_type == "player" && tour == "pga"')
+                              ),
+                            S.listItem()
+                              .title('LIV Golf')
+                              .child(
+                                S.documentTypeList('player')
+                                  .title('LIV Golf Players')
+                                  .filter('_type == "player" && tour == "liv"')
+                              ),
+                            S.listItem()
+                              .title('DP World Tour')
+                              .child(
+                                S.documentTypeList('player')
+                                  .title('DP World Tour Players')
+                                  .filter('_type == "player" && tour == "dpworld"')
                               ),
                           ])
                       ),
@@ -332,6 +653,20 @@ export default defineConfig({
                                 S.documentTypeList('tournament')
                                   .title('PGA Tournaments')
                                   .filter('_type == "tournament" && tour == "pga"')
+                              ),
+                            S.listItem()
+                              .title('LIV Golf')
+                              .child(
+                                S.documentTypeList('tournament')
+                                  .title('LIV Golf Events')
+                                  .filter('_type == "tournament" && tour == "liv"')
+                              ),
+                            S.listItem()
+                              .title('DP World Tour')
+                              .child(
+                                S.documentTypeList('tournament')
+                                  .title('DP World Tour Events')
+                                  .filter('_type == "tournament" && tour == "dpworld"')
                               ),
                           ])
                       ),

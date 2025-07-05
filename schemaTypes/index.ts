@@ -11,6 +11,11 @@ import tag from './documents/tag'
 import externalVideo from './documents/externalVideo'
 import nativeVideoAsset from './documents/nativeVideoAsset'
 
+// NEW: Golf equipment schemas
+import club from './documents/club'
+import brand from './documents/brand'
+import buyingGuide from './documents/buyingGuide'
+
 // Objects
 import imageReference from './objects/imageReference'
 import externalVideoReference from './objects/externalVideoReference'
@@ -27,6 +32,11 @@ export const schema: {types: SchemaTypeDefinition[]} = {
     tag,
     externalVideo,
     nativeVideoAsset,
+    
+    // NEW: Golf equipment documents
+    club,
+    brand,
+    buyingGuide,
     
     // Objects
     imageReference,
