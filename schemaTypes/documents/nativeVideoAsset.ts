@@ -15,6 +15,13 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'legacy_id',
+      title: 'Legacy ID',
+      type: 'string',
+      description: 'Legacy asset identifier for migration tracking',
+      hidden: true,
+    }),
+    defineField({
       name: 'videoFile',
       title: 'Video File',
       type: 'file',

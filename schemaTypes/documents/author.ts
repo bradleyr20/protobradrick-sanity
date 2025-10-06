@@ -13,6 +13,13 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'legacy_id',
+      title: 'Legacy ID',
+      type: 'string',
+      description: 'Legacy content identifier for migration tracking',
+      hidden: true,
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
